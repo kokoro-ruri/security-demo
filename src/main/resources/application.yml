@@ -1,0 +1,55 @@
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
+      datasource:
+        master:
+          url: jdbc:postgresql://192.168.3.252:5432/agcim
+          username: agcim
+          password: agcim123
+          driver-class-name: org.postgresql.Driver
+        slave_1:
+          url:  jdbc:postgresql://192.168.2.66:5432/agcim
+          username: postgres
+          password: postgres
+          driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://192.168.2.66:5432/agcim
+#    username: postgres
+#    password: postgres
+#    url: jdbc:postgresql://192.168.3.252:5432/agcim
+#    username: agcim
+#    password: agcim123
+#    driver-class-name: org.postgresql.Driver
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#       initialSize: 2
+#       max-active: 30
+#       min-idle: 2
+#       max-wait: 8000
+#       validation-query-timeout: 1
+#       test-on-borrow: true
+#       test-on-return: true
+#       test-while-idle: true
+#       time-between-eviction-runs-millis: 60000
+#       min-evictable-idle-time-millis: 300000
+#       async-close-connection-enable: true
+
+mybatis-plus:
+#  Property 'configuration' and 'configLocation' can not specified with together
+#  config-location: classpath:mybatis-config.xml
+  type-aliases-package: securityDemo.domain
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    default-fetch-size: 500
+    default-statement-timeout: 80

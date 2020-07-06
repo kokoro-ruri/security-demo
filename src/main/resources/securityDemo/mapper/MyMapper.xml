@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="securityDemo.mapper.MyMapper">
+    <sql id="allColumns">
+        id id,
+        project_name projectName,
+        remark remark,
+        create_time createTime,
+        create_name createName,
+        project_code projectCode,
+        parent_id parentId,
+        sort sort,
+        project_name_level projectNameLevel,
+        project_id_level projectIdLevel,
+        config_file_name configFileName,
+        config_file_path configFilePath
+    </sql>
+
+    <select id="getByProjectName"  parameterType="String" resultType="AgBimProject">
+        SELECT
+        <include refid="allColumns"></include>
+        from ag_bim_project where project_name = #{projectName}
+    </select>
+</mapper>
