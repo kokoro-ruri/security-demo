@@ -11,10 +11,13 @@ buildscript {
     }
 }
 
+/*
+//打war包
 plugins {
     id 'java'
     id 'war'
 }
+*/
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -32,6 +35,29 @@ targetCompatibility = 1.8
 repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }
     mavenCentral()
+}
+
+//改jar包名和版本
+bootJar {
+    baseName = 'security-demo-c'
+//    version =  '1.0.0'
+}
+
+//指定jar包生成位置，$rootDir取项目根目录
+tasks.withType(Jar) {
+    destinationDir = file("$rootDir/build/libs")      //$rootDir 取项目的顶级目录
+}
+
+//打jar包相关。
+jar {
+    manifestContentCharset 'utf-8'
+    metadataCharset 'utf-8'
+    manifest {
+        attributes 'Main-Class': 'com.comment.eureka.Application'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 dependencies {
