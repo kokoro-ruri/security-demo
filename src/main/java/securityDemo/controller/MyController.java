@@ -78,7 +78,13 @@ public class MyController {
         return myService.getByProjectName(projectName);
     }
 
-    @GetMapping("/auth")
+    @GetMapping("/getByProjectNameInSlave")
+    public List<AgBimProject> getByProjectNameInSlave(){
+        String projectName = "中山一院南沙院区（10栋）";
+        return myService.getByProjectNameInSlave(projectName);
+    }
+
+    @GetMapping("/baidu")
     public void auth(HttpServletResponse response){
         response.setStatus(302);
         response.setHeader("Location", "http://www.baidu.com");
@@ -87,9 +93,4 @@ public class MyController {
     @GetMapping({"/getByIds/{ids}", "/echo"})
     public void getByIds(@PathVariable(value = "ids", required = false) String... ids){
     }
-/*
-    @GetMapping("/echo")
-    public void echo(){
-        echoWithIds();
-    }*/
 }

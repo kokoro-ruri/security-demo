@@ -4,6 +4,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import securityDemo.domain.AgBimProject;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @UpdateDate: 2020/6/24 9:55
  */
 @Service
-public class MyServiceImpl implements MyService {
+public class MyServiceImpl extends ServiceImpl<MyMapper, AgBimProject> implements MyService {
     @Autowired
     MyMapper myMapper;
 
@@ -30,7 +31,6 @@ public class MyServiceImpl implements MyService {
     }
 
     @Override
-//    @DS("slave_1")
     public List<AgBimProject> getByProjectName(String projectName) {
         LambdaQueryWrapper<AgBimProject> lqw = new LambdaQueryWrapper<>();
         lqw.eq(AgBimProject::getProjectName, projectName);
@@ -47,5 +47,13 @@ public class MyServiceImpl implements MyService {
         objectQueryWrapper.eq(true,"project_name", projectName);
         return myMapper.selectList(objectQueryWrapper);
 //        return myMapper.getByProjectName(projectName);
+    }
+
+    @Override
+    @DS("slave_1")
+    public List<AgBimProject> getByProjectNameInSlave(String projectName) {
+        QueryWrapper<AgBimProject> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.eq(true,"project_name", projectName);
+        return myMapper.selectList(objectQueryWrapper);
     }
 }
