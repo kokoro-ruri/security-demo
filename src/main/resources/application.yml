@@ -12,13 +12,13 @@ spring:
       primary: master #设置默认的数据源或者数据源组,默认值即为master
       strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
       datasource:
-        master:
+        slave_1:
           url: jdbc:postgresql://192.168.3.252:5432/agcim
           username: agcim
           password: agcim123
           driver-class-name: org.postgresql.Driver
-        slave_1:
-          url:  jdbc:postgresql://192.168.2.66:5432/agcim
+        master:
+          url:  jdbc:postgresql://192.168.2.66:5432/security
           username: postgres
           password: postgres
           driver-class-name: org.postgresql.Driver
