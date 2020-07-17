@@ -32,8 +32,10 @@ public class MyController {
     @Autowired
     MyService myService;
 
-    @GetMapping("/add")
+    //权限两种写法，如果是hasRole，在UserDetailsService中返回的角色权限需要加上前缀"ROLE_"（如此处需要权限ROLE_USER1），hasAuthority则不需要前缀
+//    @PreAuthorize("hasRole('USER1')")
     @PreAuthorize("hasAuthority('user:add')")
+    @GetMapping("/add")
     public String add() {
         System.out.println("add");
         return "Hello add";
