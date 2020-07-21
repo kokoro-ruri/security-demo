@@ -1,23 +1,16 @@
 package securityDemo.config;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import securityDemo.interceptor.StaticResourcesInterceptor;
 
 /**
  * @Package: securityDemo.configs
@@ -43,20 +36,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-        //以下定义了内置认证与内置的“user”和“admin”登录。
+//        super.configure(auth);//默认认证方式，会经过SecurityServiceImpl（实现了UserDetailsService）定义的认证方式
+
+        //创建内存虚拟用户
+        auth.inMemoryAuthentication()
+                .withUser("nicky")
+                .password(encoder().encode("123"))
+                .roles("admin")
+                .authorities("user:add");
 /*
+        //以下定义了内置认证与内置的“user”和“admin”登录。{noop}表示明文密码
         auth
             .inMemoryAuthentication()
             .withUser("user")
-            .password("password")
+            .password("{noop}password")
             .roles("USER")
             .and()
             .withUser("admin")
             .password("password")
             .roles("ADMIN","USER");
 */
-        //
     }
 
     /**
@@ -90,6 +89,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()//没有配置的其他请求需要认证
 //            .and().anonymous()//对于没有配置权限的其他请求允许匿名访问
             .and()
-            .csrf().disable();//禁用csrf 功能
+            //禁用csrf 功能
+            .formLogin();//使用 spring security 默认登录页面
+    }
+
+    /**
+     * 必须注入 AuthenticationManager，不然oauth无法处理四种授权方式
+     *
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
