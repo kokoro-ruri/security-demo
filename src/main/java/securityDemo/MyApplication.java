@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication(exclude={SecurityAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
-//@SpringBootApplication()
 @ServletComponentScan({"securityDemo.filter"})
 @MapperScan("securityDemo.mapper")
 public class MyApplication {
