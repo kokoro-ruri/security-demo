@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //创建内存虚拟用户
         auth.inMemoryAuthentication()
-                .withUser("nicky")
+                .withUser("kuroneko")
                 .password(encoder().encode("123"))
                 .roles("admin")
                 .authorities("user:add");
