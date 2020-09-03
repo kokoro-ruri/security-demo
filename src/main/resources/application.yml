@@ -53,3 +53,5 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     default-fetch-size: 500
     default-statement-timeout: 80
+server:
+  port: 8080
