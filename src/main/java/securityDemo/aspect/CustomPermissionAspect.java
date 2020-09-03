@@ -1,8 +1,10 @@
 package securityDemo.aspect;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -12,14 +14,7 @@ import securityDemo.enums.PermissionEnums;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-/**
- * @Package: com.augurit.agcloud.agcom.agsupportbim.sc.bimfile.aspect
- * @ClassName: CustomPermissionAspect
- * @Description:
- * @UpdateDate: 2020/3/16 13:39
- */
 @Component
 @Aspect
 @Order(1)
