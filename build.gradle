@@ -14,19 +14,16 @@ buildscript {
 /*
 //打war包
 plugins {
+    // 使用spring boot
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    // 使用spring boot的自动依赖管理
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'war'
 }
 */
 
-apply plugin: 'java'
-apply plugin: 'idea'
-// 使用spring boot
-apply plugin: "org.springframework.boot"
-// 使用spring boot的自动依赖管理
-apply plugin: 'io.spring.dependency-management'
-
-group 'com.demo'
+group 'securityDemo'
 //打包时的版本后缀。可注释，则不带版本后缀
 //version '1.0-SNAPSHOT'
 
@@ -71,11 +68,10 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE")
 /*
-    //打war包时，排除内置tomcat，并添加servlet-api依赖，同时修改启动类继承SpringBootServletInitializer类，重写其configure方法
+    //打war包时，内置tomcat改为仅运行时，不参与打包，同时修改启动类继承SpringBootServletInitializer类，重写其configure方法
     compile("org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE"){
-        exclude module: "spring-boot-starter-tomcat"
+        providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
     }
-    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 */
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.6.RELEASE'
