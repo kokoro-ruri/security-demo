@@ -61,3 +61,5 @@ mybatis-plus:
     default-statement-timeout: 80
 server:
   port: 8080
+  servlet:
+    context-path: /security-demo
