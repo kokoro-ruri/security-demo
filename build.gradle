@@ -11,17 +11,15 @@ buildscript {
     }
 }
 
-/*
-//打war包
 plugins {
     // 使用spring boot
     id 'org.springframework.boot' version '2.1.8.RELEASE'
     // 使用spring boot的自动依赖管理
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    //打war包
+    //id 'war'
     id 'java'
-    id 'war'
 }
-*/
 
 group 'securityDemo'
 //打包时的版本后缀。可注释，则不带版本后缀
