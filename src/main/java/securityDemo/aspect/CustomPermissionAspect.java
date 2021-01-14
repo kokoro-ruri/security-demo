@@ -23,7 +23,6 @@ public class CustomPermissionAspect {
 
     @Pointcut("@annotation(securityDemo.annotation.HasCustomPermission)")
     private void cut(){
-        System.out.println("koko ni iru");
     }
 
     @Around("cut() && @annotation(permission)")
