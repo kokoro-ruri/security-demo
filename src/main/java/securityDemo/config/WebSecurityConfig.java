@@ -82,15 +82,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .formLogin()//使用 spring security 默认登录页面
-            .and().authorizeRequests()//限定签名成功的请求
+            .authorizeRequests()//限定签名成功的请求
             .antMatchers("/admin/login", "/oauth/**").permitAll()///admin/login和oauth 不限定
             .antMatchers("/admin/**").hasRole("ADMIN")//对admin下的接口 需要ADMIN权限
             .anyRequest().authenticated()//没有配置的其他请求需要认证
 //            .and().anonymous()//对于没有配置权限的其他请求允许匿名访问
-            .and()
             //禁用csrf 功能
-            .formLogin();//使用 spring security 默认登录页面
+            .and().csrf().disable()
+//            .formLogin();//使用 spring security 默认登录页面
+            .formLogin().loginPage("/login/login").loginProcessingUrl("/login").defaultSuccessUrl("/login/loginIndex").failureUrl("/login/loginError").permitAll();//使用自定义登录页面、路径、跳转页面
     }
 
     /**
