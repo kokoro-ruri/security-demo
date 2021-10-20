@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import securityDemo.annotation.HasCustomPermission;
 import securityDemo.domain.AgBimProject;
 import securityDemo.enums.PermissionEnums;
+import securityDemo.service.GithubFeignService;
 import securityDemo.service.MyService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,8 @@ public class MyController {
     HttpServletRequest request;
     @Autowired
     MyService myService;
+    @Autowired
+    GithubFeignService githubFeignService;
 
     //权限两种写法，如果是hasRole，在UserDetailsService中返回的角色权限需要加上前缀"ROLE_"（如此处需要权限ROLE_USER1），hasAuthority则不需要前缀
 //    @PreAuthorize("hasRole('USER1')")
@@ -94,5 +97,10 @@ public class MyController {
 
     @GetMapping({"/getByIds/{ids}", "/echo"})
     public void getByIds(@PathVariable(value = "ids", required = false) String... ids){
+    }
+
+    @GetMapping({"/githubQuery/{param}", "/echo"})
+    public String githubQuery(@PathVariable(value = "param", required = false) String param){
+        return githubFeignService.searchRepo(param);
     }
 }
