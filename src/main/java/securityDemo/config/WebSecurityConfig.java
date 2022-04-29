@@ -90,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             //禁用csrf 功能
             .and().csrf().disable()
 //            .formLogin();//使用 spring security 默认登录页面
+            //对于配置loginPage()方法和loginProcessingUrl()方法的同种场景：1、两者都不配置，则使用默认页面；2、只配置loginPage()方法，则使用自定义页面；3、只配置loginProcessingUrl()方法，则使用默认页面；4、两者都配置，则使用自定义页面（其中loginPage()方法为请求，loginProcessingUrl()方法为表单
             .formLogin().loginPage("/login/login").loginProcessingUrl("/login").defaultSuccessUrl("/login/loginIndex").failureUrl("/login/loginError").permitAll();//使用自定义登录页面、路径、跳转页面
     }
 
